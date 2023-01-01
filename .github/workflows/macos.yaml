@@ -17,4 +17,9 @@ jobs:
       - name: Install chezomi
         run: sh -c "$(curl -fsLS get.chezmoi.io)"
       
-      - run: pwd && ls
+      - run: |
+          src_dir="/Users/runner/work/dotfiles-chezmoi/dotfiles-chezmoi"
+          dst_dir="/Users/runner/.local/share/chezmoi"
+          ln -sfnv "${src_dir}" "${dst_dir}"
+      
+      - run: chezmoi init
