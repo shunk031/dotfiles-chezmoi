@@ -1,0 +1,11 @@
+.p10k.zsh
+.zlogin
+.zpreztorc
+.zprofile
+.zshenv
+.zshrc
+.zlogout
+
+.tmux.conf.d/os/
+.tmux.conf.d/system/client.conf
+.tmux-powerlinerc

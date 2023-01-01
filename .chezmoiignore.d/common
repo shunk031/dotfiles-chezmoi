@@ -1,0 +1,9 @@
+README.md
+Dockerfile
+
+install/
+tests/
+
+.git/
+.github/
+.vscode/
