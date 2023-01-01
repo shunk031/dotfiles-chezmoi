@@ -4,8 +4,8 @@
 
 # If not running interactively, don't do anything
 case $- in
-    *i*) ;;
-      *) return;;
+*i*) ;;
+*) return ;;
 esac
 
 # don't put duplicate lines or lines starting with space in the history.
@@ -37,7 +37,7 @@ fi
 
 # set a fancy prompt (non-color, unless we know we "want" color)
 case "$TERM" in
-    xterm-color|*-256color) color_prompt=yes;;
+xterm-color | *-256color) color_prompt=yes ;;
 esac
 
 # uncomment for a colored prompt, if the terminal has the capability; turned
@@ -47,12 +47,12 @@ esac
 
 if [ -n "$force_color_prompt" ]; then
     if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
-	# We have color support; assume it's compliant with Ecma-48
-	# (ISO/IEC-6429). (Lack of such support is extremely rare, and such
-	# a case would tend to support setf rather than setaf.)
-	color_prompt=yes
+        # We have color support; assume it's compliant with Ecma-48
+        # (ISO/IEC-6429). (Lack of such support is extremely rare, and such
+        # a case would tend to support setf rather than setaf.)
+        color_prompt=yes
     else
-	color_prompt=
+        color_prompt=
     fi
 fi
 
@@ -65,11 +65,11 @@ unset color_prompt force_color_prompt
 
 # If this is an xterm set the title to user@host:dir
 case "$TERM" in
-xterm*|rxvt*)
+xterm* | rxvt*)
     PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
     ;;
-*)
-    ;;
+*) ;;
+
 esac
 
 # enable color support of ls and also add handy aliases
@@ -109,30 +109,26 @@ fi
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
 # sources /etc/bash.bashrc).
 if ! shopt -oq posix; then
-  if [ -f /usr/share/bash-completion/bash_completion ]; then
-    . /usr/share/bash-completion/bash_completion
-  elif [ -f /etc/bash_completion ]; then
-    . /etc/bash_completion
-  fi
+    if [ -f /usr/share/bash-completion/bash_completion ]; then
+        . /usr/share/bash-completion/bash_completion
+    elif [ -f /etc/bash_completion ]; then
+        . /etc/bash_completion
+    fi
 fi
 
-# settings for pyenv
-export PYENV_ROOT=$HOME/.pyenv
-export PATH=$PYENV_ROOT/bin:$PATH
+# setting for pyenv and pyenv-virtualenv
 eval "$(pyenv init -)"
+eval "$(pyenv virtualenv-init -)"
 
-# settings for goenv
-export GOENV_ROOT="$HOME/.goenv"
-export PATH="$GOENV_ROOT/bin:$PATH"
-export GOPATH=$HOME/.go
-export PATH=${PATH}:$GOPATH/bin
-export GOROOT=`go env GOROOT`
-eval "$(goenv init -)"
+# settings for cudnnenv
+export PATH=/usr/local/cuda/bin:$PATH
+export LD_LIBRARY_PATH=/usr/local/cuda/lib64:$LD_LIBRARY_PATH
+export CUDA_HOME=/usr/local/cuda
 
+# for prompt
 export PS1='[\h: \w]\n\$ '
 export PYENV_VIRTUALENV_DISABLE_PROMPT=1
-
-pyenv_virtualenv_update_prompt() {
+function pyenv_virtualenv_update_prompt() {
     RED='\[\e[0;31m\]'
     GREEN='\[\e[0;32m\]'
     BLUE='\[\e[0;34m\]'
@@ -159,6 +155,76 @@ pyenv_virtualenv_update_prompt() {
 }
 export PROMPT_COMMAND="$PROMPT_COMMAND pyenv_virtualenv_update_prompt;"
 
-alias ns='watch -n 1 "nvidia-smi"'
+# for sharing history between panes/windiws in tmux session
+function tac {
+    exec sed '1!G;h;$!d' ${@+"$@"}
+}
 
+function share_history {
+    history -a
+    tac ~/.bash_history | awk '!a[$0]++' | tac >~/.bash_history.tmp
+
+    [ -f ~/.bash_history.tmp ] &&
+        mv ~/.bash_history{.tmp,} &&
+        history -c &&
+        history -r
+}
+export PROMPT_COMMAND="$PROMPT_COMMAND share_history;"
+
+# aliases
+alias ns='watch -n 1 "nvidia-smi"'
+alias ls="exa --long --group --header --binary --time-style=long-iso --icons"
+
+eval "$(ssh-agent)" >/dev/null 2>&1
+ssh-add ~/.ssh/id_rsa_github >/dev/null 2>&1
+
+export PIPENV_CACHE_DIR=/data/pink/cache/pipenv
+
+# for golang
+export GOPATH=$HOME/go
+export PATH=$PATH:/usr/local/go/bin
+export PATH=$PATH:$GOPATH/bin
+
+function ghq-path() {
+    local repo_name
+    repo_name=$(ghq list | fzf --reverse)
+
+    if [[ -n "$repo_name" ]]; then
+        for repo_root in $(ghq root --all); do
+            local repo_path="${repo_root}/${repo_name}"
+            if [[ -d "${repo_path}" ]]; then
+                echo "${repo_path}"
+                return 0
+            fi
+        done
+    fi
+    return 1
+}
+
+function dev() {
+    local moveto
+    moveto=$(ghq-path "$@")
+    cd "${moveto}" || exit 1
+
+    # rename session if in tmux
+    if [[ -n ${TMUX} ]]; then
+        local repo_name="${moveto##*/}"
+        tmux rename-session "${repo_name//./-}"
+    fi
+}
+
+# for slack api
+export SLACK_TOKEN=""
+
+# for wandb
+export WANDB_API_KEY=""
+
+# for zenodo
+export ZENODO_TOKEN=""
+
+# for huggingface datasets
+export HF_DATASETS_CACHE="${HOME%/}/.cache/huggingface/datasets"
+export TRANSFORMERS_CACHE="${HOME%/}/.cache/huggingface/hub"
+
+# for fzf
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
