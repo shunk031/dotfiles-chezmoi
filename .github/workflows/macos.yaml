@@ -7,3 +7,6 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v1
+      
+      - name: Install chezomi
+        run: sh -c "$(curl -fsLS get.chezmoi.io)"
