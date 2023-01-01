@@ -22,4 +22,4 @@ jobs:
           dst_dir="/Users/runner/.local/share/chezmoi"
           ln -sfnv "${src_dir}" "${dst_dir}"
       
-      - run: chezmoi init
+      - run: ./bin/chezmoi init
