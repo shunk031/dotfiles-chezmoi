@@ -16,6 +16,6 @@ function main() {
     add_ssh_key_to_github
 }
 
-if [ ${#BASH_SOURCE[@]} = 1 ]; then
-    main
-fi
+# if [ ${#BASH_SOURCE[@]} = 1 ]; then
+#     main
+# fi
