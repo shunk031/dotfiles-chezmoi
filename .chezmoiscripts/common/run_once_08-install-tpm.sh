@@ -1,14 +1,14 @@
 #!/usr/bin/env bash
 
-set -Eeuox pipefail
+set -Eeuo pipefail
 
-function install_tpm() {
+function clone_tpm() {
     local dir="$1"
-
     local url="https://github.com/tmux-plugins/tpm"
 
-    rm -rf "${dir}"
-    git clone "${url}" "${dir}"
+    if [ ! -d "${dir}" ]; then
+        git clone "${url}" "${dir}"
+    fi
 }
 
 function install_tpm_plugins() {
@@ -16,6 +16,13 @@ function install_tpm_plugins() {
     local cmd="${dir%/}/scripts/install_plugins.sh"
 
     "${cmd}"
+}
+
+function install_tpm() {
+    local dir="${HOME%/}/.tmux/plugins/tpm"
+
+    clone_tpm "${dir}"
+    install_tpm_plugins "${dir}"
 }
 
 function install_tmux_mem_cpu_load() {
@@ -32,11 +39,8 @@ function install_tmux_mem_cpu_load() {
 }
 
 function main() {
-    local dir="${HOME%/}/.tmux/plugins/tpm"
 
-    install_tpm "${dir}"
-    install_tpm_plugins "${dir}"
-
+    install_tpm
     install_tmux_mem_cpu_load
 }
 

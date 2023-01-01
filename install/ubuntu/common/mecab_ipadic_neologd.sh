@@ -3,7 +3,7 @@
 set -Eeuo pipefail
 
 function install_mecab_ipadic_neologd_requirements() {
-    brew install git curl xz
+    sudo apt-get install -y git make curl xz-utils file
 }
 
 function main() {
