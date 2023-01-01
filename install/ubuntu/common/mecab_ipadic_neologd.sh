@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-set -Eeuo pipefail
+set -Eeuox pipefail
 
 function install_mecab_ipadic_neologd_requirements() {
     sudo apt-get install -y git make curl xz-utils file

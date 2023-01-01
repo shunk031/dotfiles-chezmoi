@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-set -Eeuo pipefail
+set -Eeuox pipefail
 
 function get_cpu_arch() {
     local cpu

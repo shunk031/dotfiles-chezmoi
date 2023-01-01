@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-set -Eeuo pipefail
+set -Eeuox pipefail
 
 function make_ghq_dir() {
     local ghq_dir="${HOME%/}/ghq"

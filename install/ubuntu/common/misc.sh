@@ -3,7 +3,7 @@
 set -Eeuox pipefail
 
 function install_misc() {
-    sudo apt-get install -y zsh shellcheck exa
+    sudo apt-get install -y zsh shellcheck exa openssh-client
 }
 
 function main() {

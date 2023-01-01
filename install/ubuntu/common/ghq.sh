@@ -3,7 +3,7 @@
 set -Eeuox pipefail
 
 function install_ghq() {
-    brew install ghq
+    /usr/local/go/bin/go install github.com/x-motemen/ghq@latest
 }
 
 function main() {

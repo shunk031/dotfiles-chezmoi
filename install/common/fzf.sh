@@ -6,7 +6,9 @@ function clone_fzf() {
     local fzf_dir="$1"
     local fzf_url="$2"
 
-    rm -rf "${fzf_dir}" && git clone "${fzf_url}" "${fzf_dir}"
+    if [ ! -d "${fzf_dir}" ]; then
+        git clone "${fzf_url}" "${fzf_dir}"
+    fi
 }
 
 function install_fzf() {
@@ -14,6 +16,13 @@ function install_fzf() {
     local install_fzf_path="${fzf_dir%/}/install"
 
     "${install_fzf_path}" --key-bindings --completion --no-update-rc
+}
+
+function uninstall_fzf() {
+    local fzf_dir="${HOME%/}/.fzf"
+    local uninstall_fzf_path="${fzf_dir%/}/uninstall"
+
+    "${uninstall_fzf_path}"
 }
 
 function main() {

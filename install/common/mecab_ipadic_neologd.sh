@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-set -Eeuo pipefail
+set -Eeuox pipefail
 
 function clone_mecab_ipadic_neologd() {
     local url="$1"
@@ -29,6 +29,6 @@ function main() {
     rm -rf "${tmp_dir}"
 }
 
-if [ ${#BASH_SOURCE[@]} = 1 ]; then
-    main
-fi
+# if [ ${#BASH_SOURCE[@]} = 1 ]; then
+#     main
+# fi
