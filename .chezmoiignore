@@ -1,0 +1,16 @@
+README.md
+Dockerfile
+
+install
+
+{{ if ne .chezmoi.os "darwin" }}
+
+{{ end }}
+
+{{ if ne .chezmoi.os "linux" }}
+.zlogin
+.zpreztorc
+.zprofile
+.zshenv
+.zshrc
+{{ end }}

@@ -1,0 +1,14 @@
+[".fzf"]
+    type = "git-repo"
+    url = "https://github.com/junegunn/fzf"
+    refreshPeriod = "168h"
+
+[".zprezto"]
+    type = "git-repo"
+    url = "https://github.com/sorin-ionescu/prezto"
+    refreshPeriod = "168h"
+
+[".spacemacs.d"]
+    type = "git-repo"
+    url = "https://github.com/syl20bnr/spacemacs"
+    refreshPeriod = "168h"

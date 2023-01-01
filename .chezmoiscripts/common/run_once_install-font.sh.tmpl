@@ -1,0 +1,46 @@
+#!/usr/bin/env bash
+
+set -Eeuo pipefail
+
+function install_nerd_font_for_ubuntu() {
+    local font_url="https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/RobotoMono/Medium/complete/Roboto%20Mono%20Medium%20Nerd%20Font%20Complete%20Mono.ttf"
+    local font_dir="${HOME%/}/.local/share/fonts"
+    local font_name="Roboto Mono Nerd Font Complete.ttf"
+
+    mkdir -p "${font_dir}"
+    curl -fSL "${font_url}" -o "${font_dir%/}/${font_name}"
+
+}
+
+function install_nerd_font_for_macos() {
+    local font_url="https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/RobotoMono/Medium/complete/Roboto%20Mono%20Medium%20Nerd%20Font%20Complete%20Mono.ttf"
+    local font_dir="${HOME%/}/Library/Fonts"
+    local font_name="Roboto Mono Nerd Font Complete.ttf"
+
+    mkdir -p "${font_dir}"
+    curl -fSL "${font_url}" -o "${font_dir%/}/${font_name}"
+}
+
+function main() {
+    {{ if eq .chezmoi.os "linux" -}}
+
+    {{ if eq .chezmoi.osRelease.id "ubuntu" }}
+    install_nerd_font_for_ubuntu
+    {{ else }}
+    echo "Invalid linux distribution: {{ .chezmoi.osRelease.id }}"
+    exit 1
+    {{ end -}}
+
+    {{ else if eq .chezmoi.os "darwin" -}}
+    install_nerd_font_for_macos
+
+    {{ else }}
+    echo "Invalid OS: {{ .chezmoi.os }}"
+    exit 1
+
+    {{ end -}}
+}
+
+if [ ${#BASH_SOURCE[@]} = 1 ]; then
+    main
+fi
