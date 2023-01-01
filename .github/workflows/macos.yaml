@@ -22,4 +22,8 @@ jobs:
           dst_dir="/Users/runner/.local/share/chezmoi"
           ln -sfnv "${src_dir}" "${dst_dir}"
       
-      - run: ./bin/chezmoi init
+      - name: run chezmoi init
+        env: 
+          EMAIL_ADDRESS: ${{ secrets.EMAIL_ADDRESS }}
+          SYSTEM: system
+        run: printf '${EMAIL_ADDRESS}\n${SYSTEM}'| ./bin/chezmoi init
