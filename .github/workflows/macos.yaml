@@ -16,3 +16,5 @@ jobs:
       
       - name: Install chezomi
         run: sh -c "$(curl -fsLS get.chezmoi.io)"
+      
+      - run: pwd && ls
