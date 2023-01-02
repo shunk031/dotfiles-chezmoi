@@ -14,11 +14,27 @@ declare -r DOTFILES_LOGO="
                                            | $$
                                            | $$
                                            |__/
+
                      *** This is dotfiles setup script ***
 "
 
+declare -r DOTFILES_REPO_URL="https://github.com/shunk031/dotfiles-chezmoi"
+
 function initialize_dotfiles() {
-    sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply https://github.com/shunk031/dotfiles-chezmoi
+    sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply "${DOTFILES_REPO_URL}"
+}
+
+function restart_shell() {
+
+    # Restart shell if specified "bash -c $(curl -L {URL})"
+    # not restart:
+    #   curl -L {URL} | bash
+    if [ -p /dev/stdin ]; then
+        echo "Now continue with Rebooting your shell"
+    else
+        echo "Restarting your shell..."
+        exec "$(command -v zsh)"
+    fi
 }
 
 function main() {
