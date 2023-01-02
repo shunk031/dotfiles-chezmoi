@@ -16,7 +16,9 @@ function install_misc() {
         google-japanese-ime \
         slack \
         spotify \
-        visual-studio-code
+        vlc \
+        visual-studio-code \
+        zotero
 }
 
 function main() {
