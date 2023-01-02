@@ -3,7 +3,20 @@
 set -Eeuox pipefail
 
 function install_misc() {
-    brew install exa shellcheck hugo
+    brew install \
+        exa \
+        hugo \
+        htop \
+        shellcheck
+
+    brew install --cask \
+        adobe-acrobat-reader \
+        google-chrome \
+        google-drive \
+        google-japanese-ime \
+        slack \
+        spotify \
+        visual-studio-code
 }
 
 function main() {
