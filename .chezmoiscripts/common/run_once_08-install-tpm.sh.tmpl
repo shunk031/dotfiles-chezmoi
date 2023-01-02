@@ -1,1 +1,3 @@
-{{ include "install/common/tpm.sh" }}
+{{ if (or (eq .chezmoi.osRelease.id "ubuntu") (eq .chezmoi.osRelease.id "debian")) -}}
+{{   include "install/common/tpm.sh" }}
+{{ end -}}
