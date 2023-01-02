@@ -3,7 +3,9 @@
 set -Eeuox pipefail
 
 function install_golang() {
-    brew link --overwrite go || brew install go
+    if ! command -v go >/dev/null; then
+        brew install go
+    fi
 }
 
 function main() {
