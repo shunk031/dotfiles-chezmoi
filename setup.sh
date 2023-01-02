@@ -2,7 +2,8 @@
 
 set -Eeuo pipefail
 
-declare -r DOTFILES_LOGO="
+# shellcheck disable=SC2016
+declare -r DOTFILES_LOGO='
                           /$$                                      /$$
                          | $$                                     | $$
      /$$$$$$$  /$$$$$$  /$$$$$$   /$$   /$$  /$$$$$$      /$$$$$$$| $$$$$$$
@@ -16,7 +17,7 @@ declare -r DOTFILES_LOGO="
                                            |__/
 
                      *** This is dotfiles setup script ***
-"
+'
 
 declare -r DOTFILES_REPO_URL="https://github.com/shunk031/dotfiles-chezmoi"
 
