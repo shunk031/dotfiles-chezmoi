@@ -2,12 +2,22 @@
 
 set -Eeuox pipefail
 
-function install_misc() {
-    sudo apt-get install -y zsh shellcheck exa openssh-client
+function install_apt_packages() {
+    local packages=(
+        "zsh"
+        "shellcheck"
+        "exa"
+        "openssh-client"
+    )
+    for package in "${packages[@]}"; do
+        if ! ${CI}; then
+            sudo apt-get install -y "${package}"
+        fi
+    done
 }
 
 function main() {
-    install_misc
+    install_apt_packages
 }
 
 if [ ${#BASH_SOURCE[@]} = 1 ]; then
