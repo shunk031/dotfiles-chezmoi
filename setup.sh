@@ -41,6 +41,7 @@ function main() {
     echo "$DOTFILES_LOGO"
 
     initialize_dotfiles
+    restart_shell
 }
 
 main "$@"
