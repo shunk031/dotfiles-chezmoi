@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-set -Eeuox pipefail
+set -Eeuo pipefail
 
 declare -r DOTFILES_LOGO="
                           /$$                                      /$$

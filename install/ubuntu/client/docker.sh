@@ -3,7 +3,18 @@
 set -Eeuox pipefail
 
 function uninstall_old_docker() {
-    sudo apt-get -y remove docker docker-engine docker.io containerd runc
+    local packages=(
+        "docker"
+        "docker-engine"
+        "docker.io"
+        "containerd"
+        "runc"
+    )
+    for package in "${packages[@]}"; do
+        if dpkg -s "${package}" >/dev/null 2>&1; then
+            sudo apt-get remove -y "${package}"
+        fi
+    done
 }
 
 function setup_repository() {
