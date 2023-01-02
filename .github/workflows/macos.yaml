@@ -15,15 +15,18 @@ jobs:
         uses: actions/checkout@v1
       
       - name: Install chezomi
-        run: sh -c "$(curl -fsLS get.chezmoi.io)"
+        run: sudo sh -c "$(curl -fsLS get.chezmoi.io)" -- -b /usr/local/bin
       
+      - name: Setup for chezomi
       - run: |
-          src_dir="/Users/runner/work/dotfiles-chezmoi/dotfiles-chezmoi"
-          dst_dir="/Users/runner/.local/share/chezmoi"
+          mkdir -p "${HOME%/}/.local/bin"
+
+          src_dir="${HOME%/}/work/dotfiles-chezmoi/dotfiles-chezmoi"
+          dst_dir="${HOME%/}/.local/share/chezmoi"
           ln -sfnv "${src_dir}" "${dst_dir}"
 
       - name: run chezmoi init
         env: 
           EMAIL_ADDRESS: ${{ secrets.EMAIL_ADDRESS }}
           SYSTEM: client
-        run: printf '${EMAIL_ADDRESS}\n${SYSTEM}\n' | ./bin/chezmoi --no-tty init --apply
+        run: printf '${EMAIL_ADDRESS}\n${SYSTEM}\n' | chezmoi --no-tty init --apply
