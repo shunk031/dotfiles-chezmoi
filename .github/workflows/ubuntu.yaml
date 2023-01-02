@@ -8,15 +8,20 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        system: [server, client]
 
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@v1
       
       - name: Install chezomi
-        run: sh -c "$(curl -fsLS get.chezmoi.io)"
+        run: sudo sh -c "$(curl -fsLS get.chezmoi.io)" -- -b /usr/local/bin
       
+      - run: pwd && ls
+
       - run: |
           src_dir="/Users/runner/work/dotfiles-chezmoi/dotfiles-chezmoi"
           dst_dir="/Users/runner/.local/share/chezmoi"
@@ -25,5 +30,5 @@ jobs:
       - name: run chezmoi init
         env: 
           EMAIL_ADDRESS: ${{ secrets.EMAIL_ADDRESS }}
-          SYSTEM: system
-        run: printf '${EMAIL_ADDRESS}\n${SYSTEM}\n'| ./bin/chezmoi --no-tty init --apply
+          SYSTEM: ${{ matrix.system }}
+        run: printf '${EMAIL_ADDRESS}\n${SYSTEM}\n' | chezmoi --no-tty init --apply
