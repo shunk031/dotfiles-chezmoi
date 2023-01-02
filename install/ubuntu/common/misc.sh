@@ -10,7 +10,7 @@ function install_apt_packages() {
         "openssh-client"
     )
     for package in "${packages[@]}"; do
-        if ! ${CI}; then
+        if ! ${CI:-false}; then
             sudo apt-get install -y "${package}"
         fi
     done

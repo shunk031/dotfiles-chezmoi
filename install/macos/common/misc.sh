@@ -10,7 +10,7 @@ function install_brew_packages() {
         "shellcheck"
     )
     for package in "${packages[@]}"; do
-        if ${CI}; then
+        if "${CI:-false}"; then
             brew info "${package}"
         else
             brew install "${package}"
@@ -31,7 +31,7 @@ function install_brew_cask_packages() {
         "zotero"
     )
     for package in "${packages[@]}"; do
-        if ${CI}; then
+        if ${CI:-false}; then
             brew info "${package}"
         else
             brew install --cask "${package}"

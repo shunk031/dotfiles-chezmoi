@@ -24,7 +24,7 @@ function install_line() {
 function main() {
     install_mas
 
-    if ! ${CI}; then
+    if ! "${CI:-false}"; then
         install_bandwidth_plus
         install_line
     fi
