@@ -173,7 +173,7 @@ export PROMPT_COMMAND="$PROMPT_COMMAND share_history;"
 
 # aliases
 alias ns='watch -n 1 "nvidia-smi"'
-alias ls="exa --long --group --header --binary --time-style=long-iso --icons"
+# alias ls="exa --long --group --header --binary --time-style=long-iso --icons"
 
 eval "$(ssh-agent)" >/dev/null 2>&1
 ssh-add ~/.ssh/id_rsa_github >/dev/null 2>&1
@@ -181,9 +181,9 @@ ssh-add ~/.ssh/id_rsa_github >/dev/null 2>&1
 export PIPENV_CACHE_DIR=/data/pink/cache/pipenv
 
 # for golang
-export GOPATH=$HOME/go
-export PATH=$PATH:/usr/local/go/bin
-export PATH=$PATH:$GOPATH/bin
+export GOPATH="${HOME}/go"
+export PATH="${PATH}:/usr/local/go/bin"
+export PATH="${PATH}:${GOPATH}/bin"
 
 function ghq-path() {
     local repo_name
