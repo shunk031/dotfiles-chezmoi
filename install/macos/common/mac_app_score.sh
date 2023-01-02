@@ -16,10 +16,18 @@ function install_bandwidth_plus() {
     run_mas_install "${app_id}"
 }
 
+function install_line() {
+    local app_id="539883307"
+    run_mas_install "${app_id}"
+}
+
 function main() {
     install_mas
 
-    install_bandwidth_plus
+    if ! ${CI}; then
+        install_bandwidth_plus
+        install_line
+    fi
 }
 
 if [ ${#BASH_SOURCE[@]} = 1 ]; then
