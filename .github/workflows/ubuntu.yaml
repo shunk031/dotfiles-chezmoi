@@ -21,7 +21,7 @@ jobs:
         run: sudo sh -c "$(curl -fsLS get.chezmoi.io)" -- -b /usr/local/bin
       
       - name: Setup for chezmoi
-      - run: |
+        run: |
           mkdir -p "${HOME%/}/.local/share"
 
           src_dir="${HOME%/}/work/dotfiles-chezmoi/dotfiles-chezmoi"
