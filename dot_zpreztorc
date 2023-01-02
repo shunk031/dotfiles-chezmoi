@@ -42,6 +42,7 @@ zstyle ':prezto:load' pmodule \
   'python' \
   'syntax-highlighting' \
   'autosuggestions' \
+  'fzf'
 
 #
 # Autosuggestions
@@ -245,11 +246,8 @@ zstyle ':prezto:module:syntax-highlighting' highlighters \
 # fzf
 #
 
-# Use keybindings
-zstyle ':prezto:module:fzf' key-bindings 'yes'
+# Open fzf results in a tmux pane, if using tmux - default: no
+zstyle ':prezto:module:fzf' tmux 'yes'
 
-# Use completion
-zstyle ':prezto:module:fzf' completion 'yes'
-
-# Set height of the fzf results (comment for full screen)
-zstyle ':prezto:module:fzf' height '100%'
+# Order output in reverse order - default: no
+zstyle ':prezto:module:fzf' reverse 'yes'
