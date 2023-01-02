@@ -23,8 +23,10 @@ jobs:
       - run: pwd && ls
 
       - run: |
-          src_dir="/Users/runner/work/dotfiles-chezmoi/dotfiles-chezmoi"
-          dst_dir="/Users/runner/.local/share/chezmoi"
+          mkdir -p "${HOME%/}/.local.share"
+
+          src_dir="${HOME%/}/work/dotfiles-chezmoi/dotfiles-chezmoi"
+          dst_dir="${HOME%/}/.local/share/chezmoi"
           ln -sfnv "${src_dir}" "${dst_dir}"
 
       - name: run chezmoi init
