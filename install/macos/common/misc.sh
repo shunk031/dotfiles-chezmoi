@@ -8,6 +8,7 @@ function install_brew_packages() {
         "hugo"
         "htop"
         "shellcheck"
+        "tailscale"
     )
     for package in "${packages[@]}"; do
         if "${CI:-false}"; then
