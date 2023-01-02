@@ -5,10 +5,12 @@ set -Eeuox pipefail
 function install_brew_packages() {
     local packages=(
         "exa"
+        "jq"
         "hugo"
         "htop"
         "shellcheck"
         "tailscale"
+        "zsh"
     )
     for package in "${packages[@]}"; do
         if "${CI:-false}"; then

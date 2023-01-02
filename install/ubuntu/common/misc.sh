@@ -4,10 +4,12 @@ set -Eeuox pipefail
 
 function install_apt_packages() {
     local packages=(
-        "zsh"
-        "shellcheck"
         "exa"
+        "jq"
+        "htop"
+        "shellcheck"
         "openssh-client"
+        "zsh"
     )
     for package in "${packages[@]}"; do
         if ! ${CI:-false}; then

@@ -21,7 +21,7 @@ function setup_repository() {
 
     # Update the apt package index and install packages to allow apt to use a repository over HTTPS:
     sudo apt-get update
-    sudo apt-get -y install \
+    sudo apt-get install -y \
         ca-certificates \
         curl \
         gnupg \
@@ -42,7 +42,11 @@ function install_docker_engine() {
     sudo apt-get update
 
     # Install Docker Engine, containerd, and Docker Compose.
-    sudo apt-get install docker-ce docker-ce-cli containerd.io docker-compose-plugin
+    sudo apt-get install -y \
+        docker-ce \
+        docker-ce-cli \
+        containerd.io \
+        docker-compose-plugin
 }
 
 function main() {
