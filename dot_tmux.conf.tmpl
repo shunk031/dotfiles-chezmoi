@@ -1,5 +1,3 @@
-run-shell 'echo "Invalid system: {{ .system }}"; exit 1'
-
 {{ if eq .system "client" -}}
 {{   include "dot_tmux.conf.d/system/client.conf" }}
 {{ else if eq .system "server" -}}
