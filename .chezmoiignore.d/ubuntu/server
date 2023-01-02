@@ -1,4 +1,3 @@
-.p10k.zsh
 .zlogin
 .zpreztorc
 .zprofile
@@ -6,6 +5,8 @@
 .zshrc
 .zlogout
 
+.config/iterm2/
+.config/zsh/
 .tmux.conf.d/os/
 .tmux.conf.d/system/client.conf
 .tmux-powerlinerc
