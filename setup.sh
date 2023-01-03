@@ -22,7 +22,17 @@ declare -r DOTFILES_LOGO='
 declare -r DOTFILES_REPO_URL="https://github.com/shunk031/dotfiles-chezmoi"
 
 function initialize_dotfiles() {
-    sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply "${DOTFILES_REPO_URL}"
+
+    function run_chezmoi() {
+        sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply "${DOTFILES_REPO_URL}"
+    }
+
+    function cleanup_chezmoi() {
+        rm -f "${HOME}/bin/chezmoi"
+    }
+
+    run_chezmoi
+    cleanup_chezmoi
 }
 
 function get_system_from_chezmoi() {
@@ -35,10 +45,13 @@ function restart_shell_system() {
     local system
     system=$(get_system_from_chezmoi)
 
+    # exec shell as login shell (to reload the .zprofile or .profile)
     if [ "${system}" == "client" ]; then
-        exec "$(command -v zsh)"
+        /bin/zsh --login
+
     elif [ "${system}" == "server" ]; then
-        exec "$(command -v bash); source ${HOME}/.profile"
+        /bin/bash --login
+
     else
         echo "Invalid system: ${system}; expected \`client\` or \`server\`"
         exit 1
