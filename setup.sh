@@ -25,6 +25,26 @@ function initialize_dotfiles() {
     sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply "${DOTFILES_REPO_URL}"
 }
 
+function get_system_from_chezmoi() {
+    local system
+    system=$(chezmoi data | jq -r '.system')
+    echo "${system}"
+}
+
+function restart_shell_system() {
+    local system
+    system=$(get_system_from_chezmoi)
+
+    if [ "${system}" == "client" ]; then
+        exec "$(command -v zsh)"
+    elif [ "${system}" == "server" ]; then
+        exec "$(command -v bash); source ${HOME}/.profile"
+    else
+        echo "Invalid system: ${system}; expected \`client\` or \`server\`"
+        exit 1
+    fi
+}
+
 function restart_shell() {
 
     # Restart shell if specified "bash -c $(curl -L {URL})"
@@ -34,7 +54,7 @@ function restart_shell() {
         echo "Now continue with Rebooting your shell"
     else
         echo "Restarting your shell..."
-        exec "$(command -v zsh)"
+        restart_shell_system
     fi
 }
 
