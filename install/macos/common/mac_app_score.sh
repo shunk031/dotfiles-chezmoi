@@ -21,6 +21,11 @@ function install_line() {
     run_mas_install "${app_id}"
 }
 
+function install_1password7() {
+    local app_id="1333542190"
+    run_mas_install "${app_id}"
+}
+
 function main() {
     install_mas
 
