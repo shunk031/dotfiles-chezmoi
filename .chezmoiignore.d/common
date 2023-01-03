@@ -3,6 +3,7 @@ Dockerfile
 setup.sh
 
 install/
+networks/
 tests/
 
 .git/
