@@ -28,10 +28,12 @@ function install_brew_cask_packages() {
         "google-drive"
         "google-japanese-ime"
         "slack"
+        "spectacle"
         "spotify"
         "vlc"
         "visual-studio-code"
         "zotero"
+        "zoom"
     )
     for package in "${packages[@]}"; do
         if ${CI:-false}; then
