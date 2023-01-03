@@ -4,6 +4,7 @@
 .zshenv
 .zshrc
 .zlogout
+.p10k.zsh
 
 .config/iterm2/
 .config/zsh/
