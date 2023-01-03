@@ -248,8 +248,5 @@ zstyle ':prezto:module:syntax-highlighting' highlighters \
 # fzf
 #
 
-# Open fzf results in a tmux pane, if using tmux - default: no
-zstyle ':prezto:module:fzf' tmux 'yes'
-
 # Order output in reverse order - default: no
 zstyle ':prezto:module:fzf' reverse 'yes'
